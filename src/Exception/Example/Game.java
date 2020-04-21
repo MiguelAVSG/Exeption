@@ -7,6 +7,11 @@ import java.time.format.DateTimeFormatter;
 
 public class Game {
 
+    private static final String FORMAT_FOR_DATES = "yyy/MM/dd HH:mm:ss";
+    private static final String FORMAT_NAME_SCORE = "score.txt";
+    private static final String FORMAT_NAME_PROGRESS = "progress.txt";
+    private static final String FORMAT_NAME_STATISTICS = "statistics.txt";
+
     public void saveGame() {
         try {
             saveProgress();
@@ -24,41 +29,42 @@ public class Game {
     private void saveStatistics() throws SaveStatisticsException {
         FileWriter writer = null;
         try {
-            LocalDateTime now= LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy/MM/dd HH/mm/ss");
-            writer = new FileWriter("Statistics.txt", true);
+            LocalDateTime now = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(FORMAT_FOR_DATES);
+            writer = new FileWriter(FORMAT_NAME_STATISTICS, true);
             writer.append("Guardado: ").append(now.format(formatter)).append(System.lineSeparator());
             writer.close();
 
-        } catch (IOException e) {
+        } catch (IOException ex) {
             throw new SaveStatisticsException();
         }finally {
             if (writer != null) {
                 try {
                     writer.close();
-                } catch (IOException e) {
+                } catch (IOException ex) {
 
                 }
             }
         }
+        throw new IndexOutOfBoundsException("IndexOutOfBoundsException throw just because");
     }
 
     private void saveScore() throws SaveScoreException {
         FileWriter writer = null;
         try {
             LocalDateTime now= LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy/MM/dd HH/mm/ss");
-            writer = new FileWriter("Score.txt", true);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(FORMAT_FOR_DATES);
+            writer = new FileWriter(FORMAT_NAME_SCORE, true);
             writer.append("Guardado: ").append(now.format(formatter)).append(System.lineSeparator());
             writer.close();
 
-        } catch (IOException e) {
+        } catch (IOException ex) {
             throw new SaveScoreException();
         }finally {
             if (writer != null) {
                 try {
                     writer.close();
-                } catch (IOException e) {
+                } catch (IOException ex) {
 
                 }
             }
@@ -69,21 +75,23 @@ public class Game {
         FileWriter writer = null;
         try {
             LocalDateTime now= LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy/MM/dd HH/mm/ss");
-            writer = new FileWriter("progress.txt", true);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(FORMAT_FOR_DATES);
+            writer = new FileWriter(FORMAT_NAME_PROGRESS, true);
             writer.append("Guardado: ").append(now.format(formatter)).append(System.lineSeparator());
             writer.close();
 
-        } catch (IOException e) {
+        } catch (IOException ex) {
             throw new SaveProgressException();
         }finally {
             if (writer != null) {
                 try {
                     writer.close();
-                } catch (IOException e) {
+                } catch (IOException ex) {
 
                 }
             }
         }
     }
+
+
 }
