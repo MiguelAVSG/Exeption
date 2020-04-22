@@ -20,7 +20,8 @@ public class Game {
         } catch (SaveProgressException ex) { //ex tener la informacion de que ocurrio
             System.err.println("Can´t save progress" + ex.getMessage());
         } catch (SaveScoreException ex) {
-            System.err.println("Can´t save score" + ex.getMessage());
+            ex.printStackTrace();
+            //System.err.println("Can´t save score" + ex.getMessage());
         } catch (SaveStatisticsException ex) {
             System.err.println("Can´t save statistics" + ex.getMessage());
         }
@@ -57,9 +58,9 @@ public class Game {
             writer = new FileWriter(FORMAT_NAME_SCORE, true);
             writer.append("Guardado: ").append(now.format(formatter)).append(System.lineSeparator());
             writer.close();
-
-        } catch (IOException ex) {
-            throw new SaveScoreException();
+            throw new IOException("IO exception de prueba");
+        } catch (IOException e) {
+            throw new SaveScoreException("el mensaje", e);
         }finally {
             if (writer != null) {
                 try {
