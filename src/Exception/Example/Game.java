@@ -17,11 +17,10 @@ public class Game {
             saveProgress();
             saveScore();
             saveStatistics();
-        } catch (SaveProgressException ex) { //ex tener la informacion de que ocurrio
+        } catch (SaveProgressException ex) {
             System.err.println("Can´t save progress" + ex.getMessage());
         } catch (SaveScoreException ex) {
             ex.printStackTrace();
-            //System.err.println("Can´t save score" + ex.getMessage());
         } catch (SaveStatisticsException ex) {
             System.err.println("Can´t save statistics" + ex.getMessage());
         }
@@ -34,7 +33,7 @@ public class Game {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(FORMAT_FOR_DATES);
 
             writer.append("Guardado: ").append(now.format(formatter)).append(System.lineSeparator());
-         
+
 
         } catch (IOException ex) {
             throw new SaveStatisticsException();
@@ -55,24 +54,13 @@ public class Game {
     }
 
     private void saveProgress() throws SaveProgressException {
-        //FileWriter writer = null; // esta debe borrarse ya que debe crearse desde el try
-        try(FileWriter writer = new FileWriter(FORMAT_NAME_PROGRESS, true);) { // se pasa a esta parte
+
+        try(FileWriter writer = new FileWriter(FORMAT_NAME_PROGRESS, true);) {
             LocalDateTime now= LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(FORMAT_FOR_DATES);
-            //writer = new FileWriter(FORMAT_NAME_PROGRESS, true      **donde se crea el archivo se pasa al try
              writer.append("Guardado: ").append(now.format(formatter)).append(System.lineSeparator());
-            //writer.close(); se borra ya que es inecesario este close
-
         } catch (IOException ex) {
             throw new SaveProgressException();
-        }/*finally {
-            if (writer != null) {
-                try {
-                    writer.close();                    //esta parte ya no se necesita gracias al try con recursos
-                } catch (IOException ex) {
-
-                }
-            }
-        }*/
+        }
     }
 }
